@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Thermometer</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #263238;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    #main {
+      text-align: center;
+      color: white;
+    }
+
+    #thermometer {
+      width: 70px;
+      margin: 20px auto;
+      position: relative;
+    }
+
+    #stem {
+      width: 20px;
+      height: 215px;
+      position: relative;
+      left: 25px;
+      border-radius: 50px 50px 0 0;
+      border: 4px solid black;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    #marks {
+      position: absolute;
+      left: 55px;
+      top: 10px;
+      line-height: 1.2em;
+      font-size: 0.9em;
+      color: white;
+    }
+
+    #merc-stem {
+      width: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 25px;
+    }
+
+    #mercury {
+      width: 20px;
+      height: 0;
+      background-color: #01579b;
+      transition: height 0.5s ease, background-color 0.5s ease;
+    }
+
+    #bulb {
+      width: 60px;
+      height: 60px;
+      background-color: #01579b;
+      border-radius: 50%;
+      border: 4px solid black;
+      position: relative;
+      bottom: -10px;
+      left: 5px;
+      transition: background-color 0.5s ease;
+    }
+
+    input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      margin: 10px 0;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e64a19;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <h1>Interactive Thermometer</h1>
+    <div id="thermometer">
+      <div id="stem">
+        <div id="merc-stem">
+          <div id="mercury"></div>
+        </div>
+      </div>
+      <div id="bulb"></div>
+    </div>
+    <div>
+      <label for="temperature">Enter Temperature (0-100):</label>
+      <input type="number" id="temperature" min="0" max="100" value="0">
+      <button onclick="updateThermometer()">Set Temperature</button>
+    </div>
+  </div>
+
+  <script>
+    function updateThermometer() {
+      const mercury = document.getElementById('mercury');
+      const bulb = document.getElementById('bulb');
+      const tempInput = document.getElementById('temperature');
+      let temp = parseInt(tempInput.value);
+
+      // Validate the input
+      if (isNaN(temp) || temp < 0 || temp > 100) {
+        alert('Please enter a valid temperature between 0 and 100.');
+        return;
+      }
+
+      // Calculate the height percentage for mercury
+      const heightPercentage = (temp / 100) * 215; // 215px is the stem height
+      mercury.style.height = `${heightPercentage}px`;
+
+      // Change mercury and bulb color based on temperature
+      if (temp < 30) {
+        mercury.style.backgroundColor = '#01579b'; // Blue for cold
+        bulb.style.backgroundColor = '#01579b';
+      } else if (temp < 70) {
+        mercury.style.backgroundColor = '#ffeb3b'; // Yellow for moderate
+        bulb.style.backgroundColor = '#ffeb3b';
+      } else {
+        mercury.style.backgroundColor = '#dd2c00'; // Red for hot
+        bulb.style.backgroundColor = '#dd2c00';
+      }
+    }
+  </script>
+</body>
+</html>

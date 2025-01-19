@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Irrigation System</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js"></script>
+  <script type="module" src="script.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="device-info">
+      <h1>Smart Irrigation System</h1>
+      <p>Device Name: <strong id="deviceName">Loading...</strong></p>
+      <p>Status: <span id="deviceStatus" class="status-dot"></span></p>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Parameters Section -->
+    <div class="card">
+      <h2>Humidity</h2>
+      <div class="progress-container">
+        <div class="progress-ring">
+          <svg class="progress-ring-svg" width="100" height="100">
+            <circle class="progress-ring-circle-Humidity" cx="50" cy="50" r="40" stroke-width="8" />
+          </svg>
+          <div class="percentage-text">
+            <span id="percentageHumidity">0%</span>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="card">
+      <h2>Pressure</h2>
+      <div class="gauge" id="gauge">
+        <div>
+          <div id="gauge-value">0%</div>
+          <span>hPa</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Rain Level</h2>
+      <div class="progress-container">
+        <div class="progress-ring">
+          <svg class="progress-ring-svg" width="100" height="100">
+            <circle class="progress-ring-circle-Rain" cx="50" cy="50" r="40" stroke-width="8" />
+          </svg>
+          <div class="percentage-text">
+            <span id="percentageRain">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Soil Moisture</h2>
+      <div class="progress-container">
+        <div class="progress-ring">
+          <svg class="progress-ring-svg" width="100" height="100">
+            <circle class="progress-ring-circle-Soil-Moisture" cx="50" cy="50" r="40" stroke-width="8" />
+          </svg>
+          <div class="percentage-text">
+            <span id="percentageSoilMoisture">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Temperature</h2>
+      <div class="container">
+        <div>
+            <p><span id="temperature">Loading...</span>°C</p>
+        </div>
+        <div id="thermometer">
+              <div id="stem"></div>
+              <div id="marks"><div id="line">--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--<br>--</div></div>
+              <div id="merc-stem"><div id="mercury"></div></div>
+              <div id="bulb"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="button-container">
+    <button id="autoButton" class="control-button">Auto</button>
+    <button id="pumpButton" class="control-button">Pump</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="thresholdModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Update Threshold</h2>
+      <label for="thresholdInput">Enter New Threshold Value:</label>
+      <input type="number" id="thresholdInput" placeholder="Threshold value" required>
+      <div class="modal-buttons">
+        <button id="submitThreshold" class="control-button">Update</button>
+        <button id="closeModal" class="control-button secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 Smart Irrigation System | Designed for efficiency and ease</p>
+  </footer>
+</body>
+</html>
